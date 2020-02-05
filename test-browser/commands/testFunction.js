@@ -45,7 +45,7 @@ class TestFunction extends EventEmitter {
       }
       await this.emit('complete')
       done()
-    });
+    })
     return this
   }
 }

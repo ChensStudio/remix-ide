@@ -25,7 +25,7 @@ async function addInstance (browser, address, isValidFormat, isValidChecksum, ca
       await browser.assert.equal(result.value, 'Invalid checksum address.')
     }
     if (callback) callback()
-    return;
+    return
   })
 }
 
