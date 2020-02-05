@@ -47,9 +47,9 @@ module.exports = {
     browser.clickLaunchIcon('udapp')
     .click('button[class^="udappClose"]')
     .addFile('ballot.abi', { content: ballotABI })
-    await browser.addAtAddressInstance('0x692a70D2e424a56D2C6C27aA97D1a86395877b3B', true, false);
-    browser.clickLaunchIcon('fileExplorers');
-    await browser.addAtAddressInstance('0x692a70D2e424a56D2C6C27aA97D1a86395877b3A', true, true);
+    await browser.addAtAddressInstance('0x692a70D2e424a56D2C6C27aA97D1a86395877b3B', true, false)
+    browser.clickLaunchIcon('fileExplorers')
+    await browser.addAtAddressInstance('0x692a70D2e424a56D2C6C27aA97D1a86395877b3A', true, true)
     browser.pause(500)
     .waitForElementPresent('.instance:nth-of-type(2)')
     .click('.instance:nth-of-type(2) > div > button')
