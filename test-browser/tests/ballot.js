@@ -1,4 +1,5 @@
 'use strict'
+require('@babel/polyfill')
 var examples = require('../../src/app/editor/example-contracts')
 var init = require('../helpers/init')
 var sauce = require('./sauce')
@@ -14,17 +15,16 @@ module.exports = {
   '@sources': function () {
     return sources
   },
-  'Deploy Ballot': function (browser) {
-    browser
-    .waitForElementVisible('#icon-panel', 10000)
-    .clickLaunchIcon('solidity')
-    .testContracts('Untitled.sol', sources[0]['browser/Untitled.sol'], ['Ballot'])
-    .clickLaunchIcon('udapp')
-    .setValue('input[placeholder="bytes32[] proposalNames"]', '["0x48656c6c6f20576f726c64210000000000000000000000000000000000000000"]')
-    .click('#runTabView button[class^="instanceButton"]')
-    .waitForElementPresent('.instance:nth-of-type(2)')
-    .click('.instance:nth-of-type(2) > div > button')
-    .testFunction('delegate - transact (not payable)', '0x41fab8ea5b1d9fba5e0a6545ca1a2d62fff518578802c033c2b9a031a01c31b3',
+  'Deploy Ballot': async function (browser) {
+    await browser.waitForElementVisible('#icon-panel', 10000)
+    await browser.clickLaunchIcon('solidity')
+    await browser.testContracts('Untitled.sol', sources[0]['browser/Untitled.sol'], ['Ballot'])
+    await browser.clickLaunchIcon('udapp')
+    await browser.setValue('input[placeholder="bytes32[] proposalNames"]', '["0x48656c6c6f20576f726c64210000000000000000000000000000000000000000"]')
+    await browser.click('#runTabView button[class^="instanceButton"]')
+    await browser.waitForElementPresent('.instance:nth-of-type(2)')
+    await browser.click('.instance:nth-of-type(2) > div > button')
+    await browser.testFunction('delegate - transact (not payable)', '0x41fab8ea5b1d9fba5e0a6545ca1a2d62fff518578802c033c2b9a031a01c31b3',
       `[vm]\nfrom:0xca3...a733c\nto:Ballot.delegate(address) 0x692...77b3a\nvalue:0 wei\ndata:0x5c1...4d2db\nlogs:0\nhash:0x41f...c31b3`,
       {types: 'address to', values: '"0x4b0897b0513fdc7c541b6d9d7e929c4e5364d2db"'}, null, null)
   },
@@ -42,7 +42,7 @@ module.exports = {
     .checkVariableDebug('soliditylocals', localsCheck)
   },
 
-  'Access Ballot via at address': function (browser) {
+  'Access Ballot via at address': async function (browser) {
     browser.clickLaunchIcon('udapp')
     .click('button[class^="udappClose"]')
     .addFile('ballot.abi', { content: ballotABI })
@@ -52,7 +52,7 @@ module.exports = {
     .pause(500)
     .waitForElementPresent('.instance:nth-of-type(2)')
     .click('.instance:nth-of-type(2) > div > button')
-    .testFunction('delegate - transact (not payable)', '0xca58080c8099429caeeffe43b8104df919c2c543dceb9edf9242fa55f045c803',
+    await browser.testFunction('delegate - transact (not payable)', '0xca58080c8099429caeeffe43b8104df919c2c543dceb9edf9242fa55f045c803',
             `[vm]\nfrom:0xca3...a733c\nto:Ballot.delegate(address) 0x692...77b3a\nvalue:0 wei\ndata:0x5c1...4d2db\nlogs:0\nhash:0xca5...5c803`,
             {types: 'address to', values: '"0x4b0897b0513fdc7c541b6d9d7e929c4e5364d2db"'}, null, null)
   },
