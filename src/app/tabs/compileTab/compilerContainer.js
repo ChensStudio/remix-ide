@@ -24,8 +24,8 @@ class CompilerContainer {
       timeout: 300,
       allversions: null,
       selectedVersion: null,
-      defaultVersion: 'soljson-v0.6.1+commit.e6f7d5a4.js', // this default version is defined: in makeMockCompiler (for browser test) and in package.json (downloadsolc_root) for the builtin compiler
-      baseurl: 'https://solc-bin.ethereum.org/bin'
+      defaultVersion: 'soljson-v0.4.24+commit.e67f0147.js', // this default version is defined: in makeMockCompiler (for browser test) and in package.json (downloadsolc_root) for the builtin compiler
+      baseurl: 'http://127.0.0.1:8080/assets/solidity'
     }
   }
 
